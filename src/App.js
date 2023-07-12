@@ -11,8 +11,8 @@ export default function App() {
   const [text, setText] = useState()
 
 
-  console.log(countries, "yes")
-  console.log(text, "text")
+  //(countries, "yes")
+  //(text, "text")
   const options = [
     { value: 'option1', label: 'Option 1' },
     { value: 'option2', label: 'Option 2' },
@@ -26,17 +26,17 @@ export default function App() {
     })
 
       .then((response) => {
-        console.log(response);
+        //(response);
 
         const filteredCountries = response.filter((country) =>
           country.country.toLowerCase().includes(text)
         );
-        console.log(filteredCountries)
+        //(filteredCountries)
         setCountries(filteredCountries);
 
       })
       .catch((error) => {
-        console.log(error);
+        //(error);
 
       });
 

@@ -22,17 +22,17 @@ const SearchBar = () => {
                 })
 
                     .then((response) => {
-                        console.log(response);
+                        //(response);
 
                         const filteredCountries = response.filter((country) =>
                             country.country.toLowerCase().includes(searchText.toLowerCase())
                         );
-                        console.log(filteredCountries)
+                        //(filteredCountries)
                         setCountries(filteredCountries);
                         setLoading(false);
                     })
                     .catch((error) => {
-                        console.log(error);
+                        //(error);
                         setLoading(false);
                     });
             } else {
@@ -79,8 +79,8 @@ const SearchBar = () => {
             });
         }
     };
-    countries.map((r)=>{
-        console.log(r.country)
+    countries.map((r) => {
+        //(r.country)
     })
 
     const handleCountryClick = (country) => {
@@ -106,7 +106,7 @@ const SearchBar = () => {
                             className={index === selectedIndex ? "selected" : ""}
                             onClick={() => handleCountryClick(country)}
                         >
-                            {console.log(country.country)}
+                            {(country.country)}
                         </div>
                     ))}
                 </div>
