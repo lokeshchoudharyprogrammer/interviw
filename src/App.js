@@ -1,25 +1,78 @@
-import logo from './logo.svg';
-import './App.css';
+// import "./styles.css";
+import React, { useState, useEffect } from 'react';
+import "./App.css"
+export default function App() {
 
-function App() {
+  const [isOpen, setIsOpen] = useState(true);
+  const [selectedOption, setSelectedOption] = useState(null);
+  // const 
+
+  const [countries, setCountries] = useState([]);
+  const [text, setText] = useState()
+
+
+  console.log(countries, "yes")
+  console.log(text, "text")
+  const options = [
+    { value: 'option1', label: 'Option 1' },
+    { value: 'option2', label: 'Option 2' },
+    { value: 'option3', label: 'Option 3' },
+  ];
+  useEffect(() => {
+    fetch(
+      `http://localhost:2300/country`
+    ).then((r) => {
+      return r.json()
+    })
+
+      .then((response) => {
+        console.log(response);
+
+        const filteredCountries = response.filter((country) =>
+          country.country.toLowerCase().includes(text)
+        );
+        console.log(filteredCountries)
+        setCountries(filteredCountries);
+
+      })
+      .catch((error) => {
+        console.log(error);
+
+      });
+
+  }, [text])
+
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const selectOption = (option) => {
+    setSelectedOption(option);
+    setIsOpen(false);
+  };
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='box'>
+      <input type="text" onChange={(e) => setText(e.target.value)} placeholder='Search Country' />
+      <div className="dropdown">
+        <div className="dropdown-toggle" onClick={toggleDropdown}>
+          {selectedOption ? selectedOption.label : 'Select an option'}
+        </div>
+        {isOpen && (
+          <ul className="dropdown-menu">
+            {countries.map((option) => (
+              <li
+                key={option.value}
+                className="dropdown-item"
+                onClick={() => selectOption(option)}
+              >
+                {option.country}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
     </div>
   );
 }
-
-export default App;
